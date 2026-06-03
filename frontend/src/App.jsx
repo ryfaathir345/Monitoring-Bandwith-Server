@@ -6,6 +6,7 @@ import MainLayout from './layouts/MainLayout'
 import LoginPage from './pages/LoginPage'
 import DashboardPage from './pages/DashboardPage'
 import TopologyPage from './pages/TopologyPage'
+import HistoryPage from './pages/HistoryPage'
 import NotFoundPage from './pages/NotFoundPage'
 
 function App() {
@@ -13,11 +14,7 @@ function App() {
     <AuthProvider>
       <BrowserRouter>
         <Routes>
-
-          {/* Halaman login — bebas diakses */}
           <Route path="/login" element={<LoginPage />} />
-
-          {/* Halaman yang butuh login */}
           <Route
             path="/"
             element={
@@ -29,10 +26,9 @@ function App() {
             <Route index element={<Navigate to="/dashboard" replace />} />
             <Route path="dashboard" element={<DashboardPage />} />
             <Route path="topology" element={<TopologyPage />} />
+            <Route path="history" element={<HistoryPage />} />
           </Route>
-
           <Route path="*" element={<NotFoundPage />} />
-
         </Routes>
       </BrowserRouter>
     </AuthProvider>

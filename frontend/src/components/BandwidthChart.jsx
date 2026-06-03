@@ -2,41 +2,47 @@
 // Grafik garis realtime yang menampilkan bandwidth IN dan OUT
 // Menggunakan library Recharts
 
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef } from "react";
 import {
-  LineChart, Line, XAxis, YAxis, CartesianGrid,
-  Tooltip, Legend, ResponsiveContainer
-} from 'recharts'
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+} from "recharts";
 
 function BandwidthChart({ devices }) {
   // chartData menyimpan history data untuk ditampilkan di grafik
   // Format: [{ time: '12:00:01', 'Core Router': 500, ... }, ...]
-  const [chartData, setChartData] = useState([])
-  const maxPoints = 20 // Tampilkan max 20 data point di grafik
+  const [chartData, setChartData] = useState([]);
+  const maxPoints = 20; // Tampilkan max 20 data point di grafik
 
   useEffect(() => {
-    if (!devices || devices.length === 0) return
+    if (!devices || devices.length === 0) return;
 
-    const time = new Date().toLocaleTimeString('id-ID')
+    const time = new Date().toLocaleTimeString("id-ID");
 
     // Buat satu data point dari snapshot devices saat ini
-    const point = { time }
-    devices.forEach(device => {
-      point[device.name] = device.bandwidthIn
-    })
+    const point = { time };
+    devices.forEach((device) => {
+      point[device.name] = device.bandwidthIn;
+    });
 
     // Tambahkan ke history, buang yang paling lama jika melebihi maxPoints
-    setChartData(prev => {
-      const updated = [...prev, point]
-      return updated.slice(-maxPoints)
-    })
-  }, [devices])
+    setChartData((prev) => {
+      const updated = [...prev, point];
+      return updated.slice(-maxPoints);
+    });
+  }, [devices]);
 
   // Warna untuk setiap device
-  const colors = ['#60a5fa', '#34d399', '#f87171', '#fbbf24', '#a78bfa']
+  const colors = ["#60a5fa", "#34d399", "#f87171", "#fbbf24", "#a78bfa"];
 
   // Ambil nama semua device untuk dibuat jadi Line
-  const deviceNames = devices ? devices.map(d => d.name) : []
+  const deviceNames = devices ? devices.map((d) => d.name) : [];
 
   return (
     <div className="bg-gray-800 rounded-xl border border-gray-700 p-5">
@@ -58,22 +64,16 @@ function BandwidthChart({ devices }) {
               tick={{ fontSize: 11 }}
               interval="preserveStartEnd"
             />
-            <YAxis
-              stroke="#6b7280"
-              tick={{ fontSize: 11 }}
-              unit=" Mbps"
-            />
+            <YAxis stroke="#6b7280" tick={{ fontSize: 11 }} unit=" Mbps" />
             <Tooltip
               contentStyle={{
-                backgroundColor: '#1f2937',
-                border: '1px solid #374151',
-                borderRadius: '8px',
-                color: '#fff',
+                backgroundColor: "#1f2937",
+                border: "1px solid #374151",
+                borderRadius: "8px",
+                color: "#fff",
               }}
             />
-            <Legend
-              wrapperStyle={{ fontSize: '12px', color: '#9ca3af' }}
-            />
+            <Legend wrapperStyle={{ fontSize: "12px", color: "#9ca3af" }} />
             {deviceNames.map((name, index) => (
               <Line
                 key={name}
@@ -89,7 +89,7 @@ function BandwidthChart({ devices }) {
         </ResponsiveContainer>
       )}
     </div>
-  )
+  );
 }
 
-export default BandwidthChart
+export default BandwidthChart;

@@ -11,6 +11,7 @@ import healthRoutes from './routes/healthRoutes.js'
 import simulatorRoutes from './routes/simulatorRoutes.js'
 import { initSocket } from './sockets/monitoringSocket.js'
 import authRoutes from './routes/authRoutes.js'
+import logsRoute from './routes/logs.js'
 
 dotenv.config()
 
@@ -29,6 +30,7 @@ app.use(logger)
 app.use('/api/health', healthRoutes)
 app.use('/api/simulator', simulatorRoutes)
 app.use('/api/auth', authRoutes)
+app.use('/api/logs', logsRoute)
 
 app.use('*splat', (req, res) => {
   res.status(404).json({

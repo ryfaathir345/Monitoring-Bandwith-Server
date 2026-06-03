@@ -53,6 +53,17 @@ function MainLayout() {
           >
             <span>🌐</span> Topology
           </NavLink>
+          <NavLink
+            to="/history"
+            className={({ isActive }) =>
+            `flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-colors
+            ${isActive
+            ? 'bg-blue-600 text-white font-medium'
+            : 'text-gray-400 hover:text-white hover:bg-gray-700'}`
+            }
+            >
+            <span>📋</span> History Logs
+            </NavLink>
         </nav>
 
         {/* Info User + Logout */}
